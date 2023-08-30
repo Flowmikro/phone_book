@@ -36,19 +36,20 @@ def print_table(data: List[List[str]], page: int = 1) -> None:
     start_index = (page - 1) * PAGE_SIZE
     end_index = start_index + PAGE_SIZE
     page_data = data[start_index:end_index]
-    print('{:<20}{:<20}{:<20}{:<30}{:<20}{:<20}'.format(*TABLE_HEADERS))
+    print(
+        f'{TABLE_HEADERS[0]:<20}{TABLE_HEADERS[1]:<20}{TABLE_HEADERS[2]:<20}{TABLE_HEADERS[3]:<30}{TABLE_HEADERS[4]:<20}{TABLE_HEADERS[5]:<20}')
     print('-' * 130)
     for row in page_data:
-        print('{:<20}{:<20}{:<20}{:<30}{:<20}{:<20}'.format(*row))
+        print(f'{row[0]:<20}{row[1]:<20}{row[2]:<20}{row[3]:<30}{row[4]:<20}{row[5]:<20}')
     print('-' * 130)
-    print('Страница {} из {}'.format(page, (len(data) - 1) // PAGE_SIZE + 1))
+    print(f'Страница {page} из {(len(data) - 1) // PAGE_SIZE + 1}')
 
 
 def add_record(data: List[List[str]]) -> None:
     """Добавляет новую запись в справочник"""
     record = []
     for header in TABLE_HEADERS:
-        value = input('{}: '.format(header))
+        value = input(f'{header}: ')
         record.append(value)
     data.append(record)
     save_data(data)
@@ -63,7 +64,7 @@ def edit_record(data: List[List[str]]) -> None:
         return
     record = data[index - 1]
     for i, header in enumerate(TABLE_HEADERS):
-        value = input('{} ({}): '.format(header, record[i]))
+        value = input(f'{header} ({record[i]}): ')
         if value:
             record[i] = value
     save_data(data)
